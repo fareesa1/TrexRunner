@@ -32,14 +32,14 @@ function preload(){
   
   jumpSound = loadSound("jump.mp3")
   dieSound = loadSound("die.mp3")
-  checkPointSound = loadSound("checkpoint.mp3")
+  checkPointSound = loadSound("checkPoint.mp3")
 }
 
 function setup() {
-  createCanvas(600, 200);
+  createCanvas(windowWidth, windowHeight);
   
 
-  trex = createSprite(50,180,20,50);
+  trex = createSprite(50,width-20,20,50);
   
   trex.addAnimation("running", trex_running);
   trex.addAnimation("collided", trex_collided);
@@ -47,20 +47,20 @@ function setup() {
 
   trex.scale = 0.5;
   
-  ground = createSprite(200,180,400,20);
+  ground = createSprite(200,width-20,400,20);
   ground.addImage("ground",groundImage);
   ground.x = ground.width /2;
   
-  gameOver = createSprite(300,100);
+  gameOver = createSprite(width/2,height/2);
   gameOver.addImage(gameOverImg);
   
-  restart = createSprite(300,140);
+  restart = createSprite(width/2,height/2+40);
   restart.addImage(restartImg);
   
   gameOver.scale = 0.5;
   restart.scale = 0.5;
   
-  invisibleGround = createSprite(200,190,400,10);
+  invisibleGround = createSprite(200,width-10,400,10);
   invisibleGround.visible = false;
   
   //create Obstacle and Cloud Groups
@@ -79,7 +79,7 @@ function draw() {
   
   background(180);
   //displaying score
-  text("Score: "+ score, 500,50);
+  text("Score: "+ score, width-100,50);
   
   
   if(gameState === PLAY){
@@ -102,7 +102,7 @@ function draw() {
     }
     
     //jump when the space key is pressed
-    if(keyDown("space")&& trex.y >= 100) {
+    if(keyDown("space")&& trex.y >= width-60) {
         trex.velocityY = -12;
         jumpSound.play();
     }
@@ -167,7 +167,7 @@ function reset(){
 
 function spawnObstacles(){
  if (frameCount % 60 === 0){
-   var obstacle = createSprite(600,165,10,40);
+   var obstacle = createSprite(width,width-35,10,40);
    obstacle.velocityX = -(6 + score/100);
    
     //generate random obstacles
